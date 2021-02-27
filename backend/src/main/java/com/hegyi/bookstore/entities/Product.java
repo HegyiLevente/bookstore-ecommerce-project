@@ -1,20 +1,27 @@
 package com.hegyi.bookstore.entities;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Accessors(chain = true)
+@NoArgsConstructor
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq")
+    @SequenceGenerator(name = "product_seq", sequenceName = "product_seq", allocationSize = 1)
     private Long id;
 
     private String name;
@@ -25,9 +32,9 @@ public class Product {
 
     private String imageUrl;
 
-    private Boolean active;
+    private boolean active;
 
-    private Integer unitsInStock;
+    private long unitsInStock;
 
     @CreationTimestamp
     private Instant dateCreated;
@@ -37,19 +44,8 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_category_id", nullable = false)
+    @JsonBackReference
     private ProductCategory productCategory;
 
-    public Product() {}
 
-    public Product(String name, String description, BigDecimal unitPrice, String imageUrl, Boolean active, Integer unitsInStock, Instant dateCreated, Instant lastUpdated, ProductCategory productCategory) {
-        this.name = name;
-        this.description = description;
-        this.unitPrice = unitPrice;
-        this.imageUrl = imageUrl;
-        this.active = active;
-        this.unitsInStock = unitsInStock;
-        this.dateCreated = dateCreated;
-        this.lastUpdated = lastUpdated;
-        this.productCategory = productCategory;
-    }
 }
