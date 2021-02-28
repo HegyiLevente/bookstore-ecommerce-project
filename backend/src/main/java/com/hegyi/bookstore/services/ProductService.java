@@ -20,7 +20,7 @@ public class ProductService implements IProductService{
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private ProductCategoryRepository productCategoryRepository;
+    private ProductCategoryService productCategoryService;
 
     @Override
     public List<Product> getAllProducts() {
@@ -28,27 +28,27 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public Product findById(Long id) {
-        return findExistingProduct(id);
+    public Product findProductById(Long id) {
+        return this.productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product with id " + id + " not found..."));
     }
 
-    //temporary solution of getting the product category id so we can make the associations happy - after the front end will be implemented this will change
     @Override
-    public Product save(ProductDTO productDTO) {
+    public Product saveProduct(ProductDTO productDTO) {
         long categoryId = productDTO.getCategoryId();
         Product product = ProductMapper.dtoToEntity(productDTO);
 
-        product.setProductCategory(this.productCategoryRepository.findById(categoryId).get());
+        product.setProductCategory(this.productCategoryService.findProductCategoryById(categoryId));
 
         return this.productRepository.save(product);
     }
 
     @Override
     public Product entirelyUpdateProduct(Long id, ProductDTO productDTO) {
-        Product existingProduct = findExistingProduct(id);
+        Product existingProduct = findProductById(id);
 
         Product updatedProduct = ProductMapper.dtoToEntity(productDTO);
-        updatedProduct.setId(existingProduct.getId());
+        updatedProduct.setId(id);
         updatedProduct.setProductCategory(existingProduct.getProductCategory());
         updatedProduct.setDateCreated(existingProduct.getDateCreated());
 
@@ -57,7 +57,7 @@ public class ProductService implements IProductService{
 
     @Override
     public Product partiallyUpdateProduct(Long id, Map<String, Object> fields) {
-        Product product = findExistingProduct(id);
+        Product product = findProductById(id);
 
         fields.forEach((k, v) -> {
             Field field = ReflectionUtils.findField(Product.class, k);
@@ -69,18 +69,13 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteProduct(Long id) {
         try {
-            Product product = findExistingProduct(id);
-            this.productRepository.deleteById(product.getId());
+            Product product = findProductById(id);
+            this.productRepository.delete(product);
         } catch (ProductNotFoundException e) {
 
         }
-    }
-
-    private Product findExistingProduct(Long id) {
-        return this.productRepository.findById(id)
-                                     .orElseThrow(() -> new ProductNotFoundException("Product with id " + id + " not found..."));
     }
 
 }

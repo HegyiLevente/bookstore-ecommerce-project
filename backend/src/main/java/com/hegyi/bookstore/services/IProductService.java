@@ -9,10 +9,10 @@ import java.util.Map;
 public interface IProductService {
 
     List<Product> getAllProducts();
-    Product findById(Long id);
-    Product save(ProductDTO productDTO);
+    Product findProductById(Long id);
+    Product saveProduct(ProductDTO productDTO);
     Product entirelyUpdateProduct(Long id, ProductDTO productDTO);
     Product partiallyUpdateProduct(Long id, Map<String, Object> fields);
-    void deleteById(Long id);
+    void deleteProduct(Long id);
 
 }

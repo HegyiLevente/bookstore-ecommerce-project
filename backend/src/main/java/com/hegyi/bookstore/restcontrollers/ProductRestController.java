@@ -2,6 +2,7 @@ package com.hegyi.bookstore.restcontrollers;
 
 import com.hegyi.bookstore.dto.ProductDTO;
 import com.hegyi.bookstore.entities.Product;
+import com.hegyi.bookstore.services.IProductService;
 import com.hegyi.bookstore.services.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/products")
 public class ProductRestController {
 
     @Autowired
-    private ProductService productService;
+    private IProductService productService;
 
     @GetMapping()
     public List<Product> getAllProducts() {
@@ -27,14 +28,14 @@ public class ProductRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
-        Product product = this.productService.findById(id);
+        Product product = this.productService.findProductById(id);
 
         return ResponseEntity.ok().body(product);
     }
 
     @PostMapping()
     public ResponseEntity<Product> createProduct(@RequestBody ProductDTO productDTO) {
-        Product product = this.productService.save(productDTO);
+        Product product = this.productService.saveProduct(productDTO);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                                                     .path("/{id}")
@@ -60,7 +61,7 @@ public class ProductRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteProduct(@PathVariable("id") Long id) {
-        this.productService.deleteById(id);
+        this.productService.deleteProduct(id);
 
         return ResponseEntity.ok().body("Product with id: " + id + " deleted successfully!");
     }

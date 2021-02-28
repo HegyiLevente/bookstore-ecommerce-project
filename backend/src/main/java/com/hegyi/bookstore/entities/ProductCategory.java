@@ -27,7 +27,7 @@ public class ProductCategory {
 
     @OneToMany(mappedBy = "productCategory", orphanRemoval = true, cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JsonManagedReference
-    private Set<Product> listOfProducts;
+    private Set<Product> setOfProducts;
 
 
 
