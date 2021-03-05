@@ -18,8 +18,11 @@ import java.util.Map;
 @RequestMapping("/products")
 public class ProductRestController {
 
-    @Autowired
     private IProductService productService;
+
+    public ProductRestController(IProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping()
     public List<Product> getAllProducts() {

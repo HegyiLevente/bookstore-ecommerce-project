@@ -11,9 +11,11 @@ import java.util.List;
 @Service
 public class ProductCategoryService implements IProductCategoryService{
 
-    @Autowired
     private ProductCategoryRepository productCategoryRepository;
 
+    public ProductCategoryService(ProductCategoryRepository productCategoryRepository) {
+        this.productCategoryRepository = productCategoryRepository;
+    }
 
     @Override
     public List<ProductCategory> getAllProductCategories() {

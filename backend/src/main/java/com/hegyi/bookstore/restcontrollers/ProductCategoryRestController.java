@@ -14,8 +14,11 @@ import java.util.List;
 @RequestMapping("/product-categories")
 public class ProductCategoryRestController {
 
-    @Autowired
     private IProductCategoryService productCategoryService;
+
+    public ProductCategoryRestController(IProductCategoryService productCategoryService) {
+        this.productCategoryService = productCategoryService;
+    }
 
     @GetMapping
     public List<ProductCategory> getAllProductCategories() {

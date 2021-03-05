@@ -17,10 +17,13 @@ import java.util.Map;
 @Service
 public class ProductService implements IProductService{
 
-    @Autowired
     private ProductRepository productRepository;
-    @Autowired
     private ProductCategoryService productCategoryService;
+
+    public ProductService(ProductRepository productRepository, ProductCategoryService productCategoryService) {
+        this.productRepository = productRepository;
+        this.productCategoryService = productCategoryService;
+    }
 
     @Override
     public List<Product> getAllProducts() {
