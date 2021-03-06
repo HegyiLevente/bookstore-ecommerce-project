@@ -41,10 +41,8 @@ public class ProductServiceTest {
         assertEquals(3, products.size(), () -> "getAllProducts() should return 3 products...");
     }
 
-
-
     @Test
-    public void findProductByIdSuccessfullyTest() {
+    public void findProductById_successfullyTest() {
         Product firstProduct = new Product().setId(1L).setName("first product").setDescription("description");
 
         doReturn(Optional.of(firstProduct)).when(this.productRepository).findById(1L);
@@ -56,14 +54,14 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void findProductByIdIfNotExistsTest() {
+    public void failToFindProductById_productNotFoundTest() {
         doThrow(ProductNotFoundException.class).when(this.productRepository).findById(1L);
 
         assertThrows(ProductNotFoundException.class, () -> this.productService.findProductById(1L), () -> "findProductById() method with a non existing id passed did not threw ProductNotFoundException or threw another type of exception...");
     }
 
     @Test
-    public void successfullySaveProductTest() {
+    public void saveProduct_successfullyTest() {
         ProductDTO productDto = new ProductDTO().setName("product dto").setDescription("description").setUnitPrice(new BigDecimal("12.33"))
                                                 .setImageUrl("imag url").setActive(true).setUnitsInStock(10).setCategoryId(1L);
 
@@ -80,14 +78,16 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void failToSaveProduct_productCategoryNotFound() {
+    public void failToSaveProduct_productCategoryNotFoundTest() {
+        ProductDTO productDTO = new ProductDTO().setCategoryId(1L);
+
         doThrow(ProductCategoryNotFoundException.class).when(this.productCategoryService).findProductCategoryById(1L);
 
-        assertThrows(ProductCategoryNotFoundException.class, () -> this.productCategoryService.findProductCategoryById(1L));
+        assertThrows(ProductCategoryNotFoundException.class, () -> this.productService.saveProduct(productDTO));
     }
 
     @Test
-    public void entirelyUpdateProduct() {
+    public void entirelyUpdateProductTest() {
         ProductDTO productDto = new ProductDTO().setName("product dto").setDescription("description").setUnitPrice(new BigDecimal("12.33"))
                                                 .setImageUrl("imag url").setActive(true).setUnitsInStock(10);
 
@@ -106,7 +106,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void partiallyUpdateProduct() {
+    public void partiallyUpdateProductTest() {
         Product existingProduct = new Product().setId(1L).setName("product").setDescription("description").setUnitPrice(new BigDecimal("10.33"))
                                                 .setImageUrl("imag url").setActive(false).setUnitsInStock(20).setProductCategory(new ProductCategory());
 

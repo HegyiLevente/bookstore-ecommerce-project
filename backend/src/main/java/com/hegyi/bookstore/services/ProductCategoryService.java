@@ -3,7 +3,6 @@ package com.hegyi.bookstore.services;
 import com.hegyi.bookstore.customexceptions.ProductCategoryNotFoundException;
 import com.hegyi.bookstore.dao.ProductCategoryRepository;
 import com.hegyi.bookstore.entities.ProductCategory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
