@@ -29,7 +29,7 @@ public class ProductServiceTest {
     private ProductCategoryService productCategoryService;
 
     @Test
-    public void getAllProductsTest() {
+    public void getAllProducts_successfullyTest() {
         Product firstProduct = new Product().setId(1L).setName("first product").setDescription("description");
         Product secondProduct = new Product().setId(2L).setName("second product").setDescription("description");
         Product thirdProduct = new Product().setId(3L).setName("third product").setDescription("description");
@@ -87,7 +87,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void entirelyUpdateProductTest() {
+    public void entirelyUpdateProduct_successfullyTest() {
         ProductDTO productDto = new ProductDTO().setName("product dto").setDescription("description").setUnitPrice(new BigDecimal("12.33"))
                                                 .setImageUrl("imag url").setActive(true).setUnitsInStock(10);
 
@@ -106,7 +106,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void partiallyUpdateProductTest() {
+    public void partiallyUpdateProduct_successfullyTest() {
         Product existingProduct = new Product().setId(1L).setName("product").setDescription("description").setUnitPrice(new BigDecimal("10.33"))
                                                 .setImageUrl("imag url").setActive(false).setUnitsInStock(20).setProductCategory(new ProductCategory());
 

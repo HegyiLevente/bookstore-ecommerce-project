@@ -22,7 +22,7 @@ public class ProductCategoryServiceTest {
     private ProductCategoryRepository productCategoryRepository;
 
     @Test
-    public void getAllProductCategoriesTest() {
+    public void getAllProductCategories_successfullyTest() {
         ProductCategory firstCategory = new ProductCategory().setId(1L).setName("first c");
         ProductCategory secondCategory = new ProductCategory().setId(2L).setName("second c");
 
@@ -53,7 +53,7 @@ public class ProductCategoryServiceTest {
     }
 
     @Test
-    public void saveProductCategoryTest() {
+    public void saveProductCategory_successfullyTest() {
         ProductCategory category = new ProductCategory().setId(1L).setName("first c");
 
         doReturn(category).when(this.productCategoryRepository).save(category);
@@ -64,7 +64,7 @@ public class ProductCategoryServiceTest {
     }
 
     @Test
-    public void updateProductCategoryTest() {
+    public void updateProductCategory_successfullyTest() {
         ProductCategory existingCategory = new ProductCategory().setId(1L).setName("existing category").setSetOfProducts(new HashSet<>());
         ProductCategory updatableCategory = new ProductCategory().setName("updated category");
 

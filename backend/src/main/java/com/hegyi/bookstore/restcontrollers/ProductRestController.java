@@ -1,16 +1,19 @@
 package com.hegyi.bookstore.restcontrollers;
 
+import com.hegyi.bookstore.customexceptions.ProductNotFoundException;
 import com.hegyi.bookstore.dto.ProductDTO;
 import com.hegyi.bookstore.entities.Product;
 import com.hegyi.bookstore.services.IProductService;
 import com.hegyi.bookstore.services.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
@@ -25,19 +28,18 @@ public class ProductRestController {
     }
 
     @GetMapping()
-    public List<Product> getAllProducts() {
-        return this.productService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return ResponseEntity.ok().body(this.productService.getAllProducts());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
-        Product product = this.productService.findProductById(id);
-
-        return ResponseEntity.ok().body(product);
+        return ResponseEntity.ok().body(this.productService.findProductById(id));
     }
 
     @PostMapping()
     public ResponseEntity<Product> createProduct(@RequestBody ProductDTO productDTO) {
+
         Product product = this.productService.saveProduct(productDTO);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -45,7 +47,7 @@ public class ProductRestController {
                                                     .buildAndExpand(product.getId())
                                                     .toUri();
 
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(product);
     }
 
     @PutMapping("/{id}")
