@@ -1,19 +1,14 @@
 package com.hegyi.bookstore.restcontrollers;
 
-import com.hegyi.bookstore.customexceptions.ProductNotFoundException;
 import com.hegyi.bookstore.dto.ProductDTO;
 import com.hegyi.bookstore.entities.Product;
 import com.hegyi.bookstore.services.IProductService;
-import com.hegyi.bookstore.services.ProductService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 

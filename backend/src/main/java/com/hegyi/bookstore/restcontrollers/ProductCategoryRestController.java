@@ -2,7 +2,6 @@ package com.hegyi.bookstore.restcontrollers;
 
 import com.hegyi.bookstore.entities.ProductCategory;
 import com.hegyi.bookstore.services.IProductCategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,8 +20,8 @@ public class ProductCategoryRestController {
     }
 
     @GetMapping
-    public List<ProductCategory> getAllProductCategories() {
-        return this.productCategoryService.getAllProductCategories();
+    public ResponseEntity<List<ProductCategory>> getAllProductCategories() {
+        return ResponseEntity.ok().body(this.productCategoryService.getAllProductCategories());
     }
 
     @GetMapping("/{id}")
@@ -41,7 +40,7 @@ public class ProductCategoryRestController {
                                                     .buildAndExpand(productCategory.getId())
                                                     .toUri();
 
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(productCategory);
     }
 
     @PutMapping("/{id}")

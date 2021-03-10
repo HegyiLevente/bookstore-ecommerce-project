@@ -5,7 +5,7 @@ import com.hegyi.bookstore.customexceptions.ProductCategoryNotFoundException;
 import com.hegyi.bookstore.customexceptions.ProductNotFoundException;
 import com.hegyi.bookstore.dto.ProductDTO;
 import com.hegyi.bookstore.entities.Product;
-import com.hegyi.bookstore.services.IProductService;
+import com.hegyi.bookstore.services.ProductService;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class ProductRestControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private IProductService productService;
+    private ProductService productService;
 
     @Test
     public void getAllProducts_successfullyTest() throws Exception {
