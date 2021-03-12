@@ -14,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/products")
+@CrossOrigin("http://localhost:4200")
 public class ProductRestController {
 
     private IProductService productService;

@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/product-categories")
+@CrossOrigin("http://localhost:4200")
 public class ProductCategoryRestController {
 
     private IProductCategoryService productCategoryService;
