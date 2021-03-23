@@ -1,9 +1,8 @@
-
-/* ----------------------------- NAV BAR ----------------------------- */
 body {
     background-color: #f1f3f4;
 }
 
+/* ----------------------------- NAV BAR ----------------------------- */
 .top-nav-bar {
     height: 70px;
     position: sticky;
@@ -14,7 +13,7 @@ body {
 }
 
 .logo {
-    height: 80px;
+    height: 75px;
     margin: -5px 10px;
     cursor: pointer;
 }
@@ -108,8 +107,64 @@ body {
     color: red;
     margin-right: 5px;
 }
+/* ----------------------------- END OF NAV BAR ----------------------------- */
 
+
+/* ----------------------------- SIDE MENU ----------------------------- */
+.side-menu {
+    height: 75%;
+    width: 16%;
+    font-size: 16px;
+    float: left;
+    background-color: #ddd;
+}
+
+.side-menu ul li {
+    list-style-type: none;
+    font-weight: bold;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.side-menu ul li:hover {
+    color: orange;
+}
+
+.side-menu ul li ul {
+    display: none;
+    top: 91px;
+}
+
+.side-menu ul li:hover ul {
+    display: block;
+    height: 400px;
+    margin-left: 13%;
+    padding: 0 100px 10px 10px;
+    position: fixed;
+    font-size: 14px;
+    background: #ececec;
+    box-shadow: 3px 2px 4px 2px rgba(0, 0, 0, 0.4);
+}
+
+.fa-angle-right {
+    float: right;
+    margin-top: 6px;
+    margin-right: 25px;
+}
+
+#hamburger {
+    font-size: 30px;
+    margin: 15px;
+    color:orange;
+    display: none;
+    cursor: pointer;
+}
+
+/* ----------------------------- END OF SIDE MENU ----------------------------- */
+
+/* ----------------------------- MEDIA QUERY FOR SMALL DEVICES ----------------------------- */
 @media only screen and (max-width: 980px) {
+    /* Media query for the nav bar */
     .top-nav-bar {
         height: 140px;
         border-bottom: 0;
@@ -137,12 +192,32 @@ body {
         height: 60px;
         margin: 0 10px;
     }
+
+    /* Media query for the side menu */
+    .side-menu {
+        width: 25%;
+        font-size: 13px;
+        display: none;
+    }
+
+    .side-menu.show {
+        display: block;
+    }
+
+    .side-menu ul li ul {
+        top: 161px;
+    }
+
+    .side-menu ul li:hover ul {
+        margin-left: 15%;
+    }
+
+    .fa-angle-right {
+        margin-top: 5px;
+        margin-right: 10px;
+    }
+
+    #hamburger {
+        display: block;
+    }
 } 
-/* ----------------------------- END OF NAV BAR ----------------------------- */
-
-
-/* ----------------------------- SIDE MENU ----------------------------- */
-.side-menu li {
-    
-}
-/* ----------------------------- END OF SIDE MENU ----------------------------- */

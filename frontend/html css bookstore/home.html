@@ -24,6 +24,8 @@
     <!-- NAV BAR -->
     <div class="top-nav-bar">
         <div class="search-box">
+            <i class="fas fa-bars" id="hamburger"></i>
+
             <img src="images/logo.png" class="logo" href="#">
             <input type="text" class="form-control">
             <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -40,7 +42,7 @@
     <!-- END OF THE NAV BAR -->
 
     <!-- SIDE MENU -->
-    <div class="side-menu">
+    <div class="side-menu" id="side-menu">
         <ul>
             <li>On Sale <i class="fas fa-angle-right"></i></i>
                 <ul>
@@ -62,6 +64,16 @@
             </li>
         </ul>
     </div>
+
+
+    <script>
+        const hamburger = document.getElementById("hamburger");
+        const sideMenu = document.getElementById("side-menu");
+
+        hamburger.addEventListener("click", () => {
+            sideMenu.classList.toggle("show");
+        });
+    </script>
 
  </body>
 
